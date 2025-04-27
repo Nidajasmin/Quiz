@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="max-width: 700px; margin: 40px auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+    
+    <div style="background: #e0f7fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        <strong>Total Questions:</strong> {{ total_questions }} |
+        <strong>Attempted:</strong> {{ answered_count }} |
+        <strong>Remaining:</strong> {{ remaining_count }}
+    </div>
+
+    <h2 style="text-align: center; margin-bottom: 30px;">{{ question.text }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            {% for option in options %}
+            <label style="display: flex; align-items: center; padding: 10px 15px; background: #f8f8f8; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;">
+                <input type="radio" name="selected_option" value="{{ option.id }}" 
+                {% if selected_option and selected_option.id == option.id %}checked{% endif %}
+                required style="margin-right: 12px;">
+                <span style="font-size: 18px;">{{ option.text }}</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+            {% if previous_question %}
+            <a href="{% url 'question_detail' quiz.id previous_question.id %}" style="background-color: #f1f1f1; color: #333; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 16px;">← Back</a>
+            {% else %}
+            <div></div> 
+            {% endif %}
+            
+            {% if is_last_question %}
+            <button type="submit" style="background-color: #FF5722; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                Finish Quiz →
+            </button>
+            {% else %}
+            <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                Submit Answer →
+            </button>
+            {% endif %}
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

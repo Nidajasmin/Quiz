@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+        nav {
+            margin-top: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #ddd;
+            margin-top: 20px;
+        }
+
+       
+        .message {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .message.error {
+            background-color: #ffdddd;
+            color: #a94442;
+            border: 1px solid #a94442;
+        }
+        .message.success {
+            background-color: #ddffdd;
+            color: #3c763d;
+            border: 1px solid #3c763d;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Quiz Management System</h1>
+</header>
+
+<nav>
+    {% if user.is_authenticated %}
+        <a href="{% url 'landing' %}">Home</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    
+    {% endif %}
+</nav>
+
+<main>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
+</html>
