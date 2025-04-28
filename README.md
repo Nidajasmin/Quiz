@@ -40,6 +40,12 @@ Requirements
 
     SQLite Database (used by default)
 
+    HTML
+
+    CSS
+
+    
+
 Installation
 -----------------
 
